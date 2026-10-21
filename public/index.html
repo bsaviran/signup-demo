@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My First Full-Stack App</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <div class="eyebrow">MY FIRST FULL-STACK APP</div>
+    <h1>מי נרשם לאתר? 👋</h1>
+    <p class="subtitle">הקלידו שם. השרת ישמור אותו במסד הנתונים והוא יופיע ברשימה.</p>
+    <form id="signup-form">
+      <label for="name">השם שלך</label>
+      <div class="field-row">
+        <input id="name" name="name" type="text" placeholder="למשל: דניאל" minlength="2" maxlength="60" required autocomplete="name" />
+        <button id="submit-btn" type="submit">הרשמה</button>
+      </div>
+    </form>
+    <p id="message" role="status" aria-live="polite"></p>
+    <section class="list-section">
+      <div class="list-header"><h2>אנשים שנרשמו</h2><span id="count">—</span></div>
+      <ul id="users-list"><li class="empty">טוען נתונים...</li></ul>
+    </section>
+    <div class="learning-note">Frontend → <code>fetch('/api/users')</code> → Backend → PostgreSQL</div>
+  </main>
+</body>
+</html>
