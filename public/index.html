@@ -3,28 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My First Full-Stack App</title>
+  <meta name="theme-color" content="#0b1324" />
+  <meta name="description" content="JOIN — המקום שבו מתחברים. הצטרפו לקהילה וגלו מי כבר כאן." />
+  <title>JOIN | מתחברים לאנשים</title>
   <link rel="stylesheet" href="/style.css" />
   <script src="/app.js" defer></script>
 </head>
 <body>
-  <main class="container">
-    <div class="eyebrow">MY FIRST FULL-STACK APP</div>
-    <h1>מי נרשם לאתר? 👋</h1>
-    <p class="subtitle">הקלידו שם. השרת ישמור אותו במסד הנתונים והוא יופיע ברשימה.</p>
-    <form id="signup-form">
-      <label for="name">השם שלך</label>
-      <div class="field-row">
-        <input id="name" name="name" type="text" placeholder="למשל: דניאל" minlength="2" maxlength="60" required autocomplete="name" />
-        <button id="submit-btn" type="submit">הרשמה</button>
-      </div>
-    </form>
-    <p id="message" role="status" aria-live="polite"></p>
-    <section class="list-section">
-      <div class="list-header"><h2>אנשים שנרשמו</h2><span id="count">—</span></div>
-      <ul id="users-list"><li class="empty">טוען נתונים...</li></ul>
-    </section>
-    <div class="learning-note">Frontend → <code>fetch('/api/users')</code> → Backend → PostgreSQL</div>
-  </main>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="JOIN — דף הבית"><span class="brand-mark" aria-hidden="true">J<span>✦</span></span><span>JOIN<span class="brand-dot">.</span></span></a>
+      <span class="topbar-status"><span class="status-dot"></span>הקהילה פתוחה להצטרפות</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> WELCOME TO JOIN <span class="eyebrow-line"></span></div>
+          <h1 id="hero-title">מקום קטן.<br /><span class="gradient-text">חיבורים גדולים.</span></h1>
+          <p class="hero-description">כל קהילה מתחילה בשם אחד. הצטרפו אלינו, השאירו את השם שלכם וגלו מי כבר כאן.</p>
+          <div class="hero-points"><span><span class="check-icon">✓</span> הרשמה מהירה</span><span><span class="check-icon">✓</span> קהילה פתוחה</span><span><span class="check-icon">✓</span> בלי סיסמה</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="art-core">J<span>✦</span></div><div class="art-chip chip-a">HELLO 👋</div><div class="art-chip chip-b"><span class="chip-dot"></span> COMMUNITY</div></div>
+      </section>
+
+      <section class="content-grid" aria-label="הצטרפות לקהילה">
+        <div class="panel signup-panel">
+          <div class="panel-kicker"><span class="mini-icon">↗</span> JOIN THE COMMUNITY</div>
+          <h2>טוב שבאתם.</h2>
+          <p class="panel-description">רגע אחד, שם אחד — ואתם חלק מהקהילה.</p>
+          <form id="signup-form">
+            <label for="name">איך קוראים לך?</label>
+            <input id="name" name="name" type="text" placeholder="השם המלא או הפרטי שלך" minlength="2" maxlength="60" required autocomplete="name" />
+            <button id="submit-btn" type="submit"><span>מצטרפים עכשיו</span><span aria-hidden="true">←</span></button>
+          </form>
+          <p id="message" role="status" aria-live="polite"></p>
+          <div class="privacy-note"><span aria-hidden="true">ⓘ</span> השם שתזינו יהיה גלוי לכל מבקר באתר. אין להזין מידע רגיש.</div>
+        </div>
+        <div class="panel community-panel">
+          <div class="community-header"><div><div class="panel-kicker"><span class="mini-icon">◎</span> OUR PEOPLE</div><h2>כבר חלק מהקהילה</h2><p class="panel-description">האנשים שהצטרפו עד עכשיו</p></div><div class="count-tile"><strong id="count">—</strong><span>חברים</span></div></div>
+          <div class="list-title"><span>חברים אחרונים</span><span class="live-pill"><span class="status-dot"></span> מתעדכן בהרשמה</span></div>
+          <ul id="users-list" aria-label="רשימת נרשמים"><li class="empty">טוענים את חברי הקהילה...</li></ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><div class="footer-brand">JOIN<span>.</span></div><span>נבנה כדי לחבר בין אנשים. © <span id="year"></span></span><span class="footer-side">DESIGNED WITH PURPOSE ✦</span></footer>
+  </div>
 </body>
 </html>
