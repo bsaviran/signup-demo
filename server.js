@@ -30,14 +30,14 @@ const INTERESTS = ['engagement', 'earrings', 'bracelet', 'loose', 'custom', 'oth
 const PHONE = /^[0-9+\-\s()]{9,20}$/;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Simple rate limit: each IP may send up to 5 inquiries per 10 minutes. The counter resets every window.
+// Simple rate limit: each IP may send up to 5 appointment requests per 10 minutes. The counter resets every window.
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX = 5;
 const requestsByIp = new Map();
 setInterval(() => requestsByIp.clear(), RATE_WINDOW_MS).unref();
 
-// POST: a visitor asks for a private consultation. Inquiries are private: there is no public GET route.
-app.post('/api/inquiries', async (req, res) => {
+// POST: a visitor asks for a private consultation. Appointments are private: there is no public GET route.
+app.post('/api/appointments', async (req, res) => {
   const count = (requestsByIp.get(req.ip) || 0) + 1;
   requestsByIp.set(req.ip, count);
   if (count > RATE_MAX) {
@@ -70,22 +70,22 @@ app.post('/api/inquiries', async (req, res) => {
   try {
     // $1..$4 are parameters: safe from SQL injection.
     await pool.query(
-      'INSERT INTO inquiries (name, contact, interest, message) VALUES ($1, $2, $3, $4)',
+      'INSERT INTO appointments (name, contact, interest, message) VALUES ($1, $2, $3, $4)',
       [name, contact, interest, message || null]
     );
-    // Only echo back the name. The browser does not need anything else.
+    // Reached only after the INSERT succeeded. Only echo back the name; the browser does not need anything else.
     res.status(201).json({ name });
   } catch (error) {
-    console.error('POST /api/inquiries:', error);
+    console.error('POST /api/appointments:', error);
     res.status(500).json({ error: 'Database error. Try again later.' });
   }
 });
 
 // Database setup. Runs on each launch and does not erase existing data.
-// (The older "users" table from the first version stays in the database untouched.)
+// (Older tables from earlier versions, "users" and "inquiries", stay in the database untouched.)
 async function start() {
   await pool.query(`
-    CREATE TABLE IF NOT EXISTS inquiries (
+    CREATE TABLE IF NOT EXISTS appointments (
       id BIGSERIAL PRIMARY KEY,
       name VARCHAR(60) NOT NULL,
       contact VARCHAR(100) NOT NULL,

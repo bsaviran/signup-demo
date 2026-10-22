@@ -77,7 +77,7 @@ git push -u origin main
 
 ## API
 
-- `POST /api/inquiries` עם גוף `{"name":"Dana","contact":"050-1234567","interest":"engagement","message":"..."}` → שומר פנייה בטבלה `inquiries` ומחזיר `201`.
+- `POST /api/appointments` עם גוף `{"name":"Dana","contact":"050-1234567","interest":"engagement","message":"..."}` → שומר פנייה בטבלה `appointments` ומחזיר `201`.
   - `interest` חייב להיות אחד מ: `engagement`, `earrings`, `bracelet`, `loose`, `custom`, `other`.
   - `contact` חייב להיות טלפון או אימייל תקין. `message` אינו חובה (עד 500 תווים).
   - מוגבל ל־5 פניות לכל כתובת IP בכל 10 דקות (`429`).
@@ -89,7 +89,7 @@ git push -u origin main
 
 ```sql
 SELECT created_at, name, contact, interest, message
-FROM inquiries
+FROM appointments
 ORDER BY created_at DESC;
 ```
 
