@@ -77,8 +77,21 @@ git push -u origin main
 
 ## API
 
-- `GET /api/users` → מחזיר עד 100 שמות אחרונים בפורמט JSON.
-- `POST /api/users` עם גוף `{"name":"Dana"}` → מוסיף רשומה ומחזיר JSON עם `id`, `name`, `created_at`.
+- `POST /api/inquiries` עם גוף `{"name":"Dana","contact":"050-1234567","interest":"engagement","message":"..."}` → שומר פנייה בטבלה `inquiries` ומחזיר `201`.
+  - `interest` חייב להיות אחד מ: `engagement`, `earrings`, `bracelet`, `loose`, `custom`, `other`.
+  - `contact` חייב להיות טלפון או אימייל תקין. `message` אינו חובה (עד 500 תווים).
+  - מוגבל ל־5 פניות לכל כתובת IP בכל 10 דקות (`429`).
+- אין נקודת API שמציגה את הפניות. הן פרטיות.
+
+## איך רואים את הפניות
+
+פותחים את ה־SQL Editor אצל ספק מסד הנתונים (למשל Neon) ומריצים:
+
+```sql
+SELECT created_at, name, contact, interest, message
+FROM inquiries
+ORDER BY created_at DESC;
+```
 
 ## חשוב
 

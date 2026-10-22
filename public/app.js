@@ -1,74 +1,152 @@
-// Frontend: the visitor's browser communicates with the existing Express API.
-const form = document.querySelector('#signup-form');
-const input = document.querySelector('#name');
-const message = document.querySelector('#message');
-const list = document.querySelector('#users-list');
-const count = document.querySelector('#count');
-const button = document.querySelector('#submit-btn');
+// FRONTEND: runs in the visitor's browser and talks to the Express API.
+document.documentElement.classList.add('js');
 document.querySelector('#year').textContent = new Date().getFullYear();
 
-// Fetch the latest registrations from PostgreSQL via the backend.
-async function loadUsers() {
-  try {
-    const response = await fetch('/api/users', { cache: 'no-store' });
-    if (!response.ok) throw new Error('Could not load users');
-    const users = await response.json();
-    list.replaceChildren();
-    count.textContent = users.length;
-    if (users.length === 0) {
-      const item = document.createElement('li');
-      item.className = 'empty';
-      item.textContent = 'עדיין אין חברים. אפשר להיות הראשונים!';
-      list.append(item);
-    }
-    for (const user of users) {
-      const item = document.createElement('li');
-      const avatar = document.createElement('span');
-      avatar.className = 'avatar';
-      avatar.textContent = user.name.trim().charAt(0);
-      avatar.setAttribute('aria-hidden', 'true');
-      const text = document.createElement('span');
-      text.className = 'person-label';
-      text.textContent = user.name; // Safe: no HTML injection.
-      item.append(avatar, text);
-      list.append(item);
-    }
-  } catch (error) {
-    list.replaceChildren();
-    count.textContent = '—';
-    const item = document.createElement('li');
-    item.className = 'empty';
-    item.textContent = 'לא ניתן לטעון את רשימת החברים כרגע.';
-    list.append(item);
-    console.error(error);
+// ---------- 4C tabs ----------
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+
+function selectTab(tab) {
+  for (const other of tabs) {
+    const selected = other === tab;
+    other.setAttribute('aria-selected', selected);
+    other.tabIndex = selected ? 0 : -1; // Only the active tab is in the Tab order; arrows move between tabs.
+    document.getElementById(other.getAttribute('aria-controls')).hidden = !selected;
   }
+}
+
+tabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => selectTab(tab));
+  tab.addEventListener('keydown', event => {
+    // In a right-to-left page, ArrowLeft means "next".
+    const step = { ArrowLeft: 1, ArrowRight: -1 }[event.key];
+    if (!step) return;
+    const next = tabs[(index + step + tabs.length) % tabs.length];
+    selectTab(next);
+    next.focus();
+  });
+});
+
+// ---------- Carat slider ----------
+// Approximate diameter (mm) of a well-cut round brilliant at each weight.
+const CARATS = [[0.25, 4.1], [0.5, 5.1], [0.75, 5.8], [1, 6.4], [1.5, 7.4], [2, 8.1], [3, 9.3]];
+const PX_PER_MM = 16;
+const caratRange = document.querySelector('#carat-range');
+const caratStone = document.querySelector('#carat-stone');
+
+function updateCarat() {
+  const [carat, mm] = CARATS[caratRange.value];
+  const size = `${mm * PX_PER_MM}px`;
+  caratStone.style.width = size;
+  caratStone.style.height = size;
+  document.querySelector('#carat-value').textContent = carat.toFixed(2);
+  document.querySelector('#carat-mm').textContent = mm;
+  caratRange.setAttribute('aria-valuetext', `${carat} קראט, ${mm} מילימטר`);
+}
+caratRange.addEventListener('input', updateCarat);
+updateCarat();
+
+// ---------- Inquiry form ----------
+const form = document.querySelector('#inquiry-form');
+const button = document.querySelector('#submit-btn');
+const formMessage = document.querySelector('#form-message');
+const interestSelect = document.querySelector('#interest');
+
+// Clicking a collection card pre-selects that interest in the form.
+document.querySelectorAll('[data-interest]').forEach(card => {
+  card.addEventListener('click', () => { interestSelect.value = card.dataset.interest; });
+});
+
+// Same rules as the server. Here they give a quick, friendly message; the server is what actually enforces them.
+const PHONE = /^[0-9+\-\s()]{9,20}$/;
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const RULES = [
+  ['name', value => value.length >= 2 && value.length <= 60, 'נא להזין שם מלא.'],
+  ['contact', value => PHONE.test(value) || EMAIL.test(value), 'נא להזין מספר טלפון או כתובת אימייל תקינים.'],
+  ['interest', value => value !== '', 'נא לבחור מה מעניין אתכם.']
+];
+
+function showMessage(text, isError) {
+  formMessage.textContent = text;
+  formMessage.className = isError ? 'error' : '';
 }
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  const name = input.value.trim();
-  if (name.length < 2 || name.length > 60) return;
+  const data = Object.fromEntries(new FormData(form));
+  for (const key in data) data[key] = data[key].trim();
+
+  for (const field of form.querySelectorAll('[aria-invalid]')) field.removeAttribute('aria-invalid');
+  const failed = RULES.find(([key, isValid]) => !isValid(data[key]));
+  if (failed) {
+    const [key, , text] = failed;
+    const input = form.elements[key];
+    input.setAttribute('aria-invalid', 'true');
+    input.focus();
+    return showMessage(text, true);
+  }
+
   button.disabled = true;
-  message.textContent = 'מוסיפים אותך לקהילה...';
-  message.className = '';
+  showMessage('שולחים...');
   try {
-    const response = await fetch('/api/users', {
+    const response = await fetch('/api/inquiries', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name })
+      body: JSON.stringify(data)
     });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Registration failed');
-    input.value = '';
-    message.textContent = `איזה כיף, ${data.name}! הצטרפת לקהילה בהצלחה ✨`;
-    await loadUsers();
+    if (response.status === 429) throw new Error('rate-limit');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const result = await response.json();
+    form.reset();
+    showMessage(`תודה, ${result.name}. קיבלנו את הפנייה ונחזור אליכם בהקדם.`);
   } catch (error) {
-    message.className = 'error';
-    message.textContent = 'משהו השתבש ברישום. אפשר לנסות שוב.';
+    showMessage(error.message === 'rate-limit'
+      ? 'נשלחו יותר מדי פניות. נסו שוב בעוד כמה דקות.'
+      : 'משהו השתבש בשליחה. נסו שוב בעוד רגע.', true);
     console.error(error);
   } finally {
     button.disabled = false;
   }
 });
 
-loadUsers();
+// ---------- Scroll reveal ----------
+// Cards in the same group get an index (--i) so CSS can delay each one a little more than the last.
+// "% 3" restarts the count every three cards, so on a phone (one card per row) nobody waits too long.
+for (const group of document.querySelectorAll('.collection, .shapes, .tips, .steps')) {
+  [...group.children].forEach((child, index) => child.style.setProperty('--i', index % 3));
+}
+
+// Let CSS "draw" the gold icons: with pathLength="1", every outline counts as length 1, whatever its real size.
+document.querySelectorAll('.item-icon *, .shape svg *').forEach(shape => shape.setAttribute('pathLength', '1'));
+
+// IntersectionObserver tells us when an element enters the screen. Cheaper than listening to every scroll event.
+// rootMargin -10% at the bottom waits until the element is a bit inside the screen, so you see it happen.
+const observer = new IntersectionObserver(entries => {
+  for (const entry of entries) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    }
+  }
+}, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+
+// Parallax: the hero image moves slower than the page and fades out, which adds depth.
+const heroMedia = document.querySelector('.hero-media');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let frameRequested = false;
+window.addEventListener('scroll', () => {
+  if (frameRequested || reduceMotion.matches) return;
+  // Scroll fires many times per frame. requestAnimationFrame updates at most once per screen refresh.
+  frameRequested = true;
+  requestAnimationFrame(() => {
+    const y = Math.min(window.scrollY, window.innerHeight);
+    heroMedia.style.transform = `translateY(${y * 0.35}px)`;
+    heroMedia.style.opacity = 1 - (y / window.innerHeight) * 0.8;
+    frameRequested = false;
+  });
+}, { passive: true }); // passive: we never block scrolling, so the browser can scroll smoothly.
+
+// Show the small logo in the top bar only after the big hero logo has scrolled away.
+new IntersectionObserver(([entry]) => {
+  document.body.classList.toggle('past-hero', !entry.isIntersecting);
+}, { threshold: 0.25 }).observe(document.querySelector('.hero-media'));

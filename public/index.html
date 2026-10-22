@@ -3,52 +3,306 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1324" />
-  <meta name="description" content="JOIN — המקום שבו מתחברים. הצטרפו לקהילה וגלו מי כבר כאן." />
-  <title>JOIN | מתחברים לאנשים</title>
+  <meta name="theme-color" content="#060504" />
+  <meta name="description" content="Dan Ben Shalom Diamonds — טבעות אירוסין, תכשיטי יהלומים ויהלומים בודדים בליווי אישי. מדריך ה־4C ותיאום פגישה פרטית." />
+  <title>Dan Ben Shalom Diamonds | יהלומים ותכשיטים בליווי אישי</title>
   <link rel="stylesheet" href="/style.css" />
   <script src="/app.js" defer></script>
 </head>
 <body>
-  <div class="page-shell">
-    <header class="topbar">
-      <a class="brand" href="/" aria-label="JOIN — דף הבית"><span class="brand-mark" aria-hidden="true">J<span>✦</span></span><span>JOIN<span class="brand-dot">.</span></span></a>
-      <span class="topbar-status"><span class="status-dot"></span>הקהילה פתוחה להצטרפות</span>
-    </header>
+  <!-- Shared SVG drawings. Defined once here and reused with <use href="#...">. -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="g-ice" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset="0.45" stop-color="#dfe7ef" />
+        <stop offset="1" stop-color="#9fb0c2" />
+      </linearGradient>
+      <symbol id="diamond" viewBox="0 0 200 200">
+        <g stroke="rgba(255,255,255,0.65)" stroke-width="0.8" stroke-linejoin="round">
+          <polygon points="20,80 65,45 60,80" fill="url(#g-ice)" opacity="0.75" />
+          <polygon points="65,45 100,80 60,80" fill="#ffffff" opacity="0.92" />
+          <polygon points="65,45 100,45 100,80" fill="url(#g-ice)" opacity="0.6" />
+          <polygon points="100,45 135,45 100,80" fill="#ffffff" opacity="0.85" />
+          <polygon points="135,45 140,80 100,80" fill="url(#g-ice)" opacity="0.7" />
+          <polygon points="135,45 180,80 140,80" fill="#cfd9e4" opacity="0.8" />
+          <polygon points="20,80 60,80 100,175" fill="url(#g-ice)" opacity="0.55" />
+          <polygon points="60,80 100,80 100,175" fill="#ffffff" opacity="0.8" />
+          <polygon points="100,80 140,80 100,175" fill="#b9c6d4" opacity="0.75" />
+          <polygon points="140,80 180,80 100,175" fill="url(#g-ice)" opacity="0.9" />
+        </g>
+      </symbol>
+    </defs>
+  </svg>
 
-    <main>
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <div class="eyebrow"><span class="eyebrow-line"></span> WELCOME TO JOIN <span class="eyebrow-line"></span></div>
-          <h1 id="hero-title">מקום קטן.<br /><span class="gradient-text">חיבורים גדולים.</span></h1>
-          <p class="hero-description">כל קהילה מתחילה בשם אחד. הצטרפו אלינו, השאירו את השם שלכם וגלו מי כבר כאן.</p>
-          <div class="hero-points"><span><span class="check-icon">✓</span> הרשמה מהירה</span><span><span class="check-icon">✓</span> קהילה פתוחה</span><span><span class="check-icon">✓</span> בלי סיסמה</span></div>
-        </div>
-        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="art-core">J<span>✦</span></div><div class="art-chip chip-a">HELLO 👋</div><div class="art-chip chip-b"><span class="chip-dot"></span> COMMUNITY</div></div>
-      </section>
+  <a class="skip-link" href="#main">דלגו לתוכן</a>
 
-      <section class="content-grid" aria-label="הצטרפות לקהילה">
-        <div class="panel signup-panel">
-          <div class="panel-kicker"><span class="mini-icon">↗</span> JOIN THE COMMUNITY</div>
-          <h2>טוב שבאתם.</h2>
-          <p class="panel-description">רגע אחד, שם אחד — ואתם חלק מהקהילה.</p>
-          <form id="signup-form">
-            <label for="name">איך קוראים לך?</label>
-            <input id="name" name="name" type="text" placeholder="השם המלא או הפרטי שלך" minlength="2" maxlength="60" required autocomplete="name" />
-            <button id="submit-btn" type="submit"><span>מצטרפים עכשיו</span><span aria-hidden="true">←</span></button>
-          </form>
-          <p id="message" role="status" aria-live="polite"></p>
-          <div class="privacy-note"><span aria-hidden="true">ⓘ</span> השם שתזינו יהיה גלוי לכל מבקר באתר. אין להזין מידע רגיש.</div>
-        </div>
-        <div class="panel community-panel">
-          <div class="community-header"><div><div class="panel-kicker"><span class="mini-icon">◎</span> OUR PEOPLE</div><h2>כבר חלק מהקהילה</h2><p class="panel-description">האנשים שהצטרפו עד עכשיו</p></div><div class="count-tile"><strong id="count">—</strong><span>חברים</span></div></div>
-          <div class="list-title"><span>חברים אחרונים</span><span class="live-pill"><span class="status-dot"></span> מתעדכן בהרשמה</span></div>
-          <ul id="users-list" aria-label="רשימת נרשמים"><li class="empty">טוענים את חברי הקהילה...</li></ul>
-        </div>
-      </section>
-    </main>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Dan Ben Shalom Diamonds — דף הבית">
+      <span class="brand-name">DAN BEN SHALOM</span><span class="brand-sub">DIAMONDS</span>
+    </a>
+    <nav class="nav" aria-label="ניווט ראשי">
+      <a href="#collection">הקולקציה</a>
+      <a href="#guide">שפת היהלומים</a>
+      <a href="#shapes">צורות ליטוש</a>
+      <a href="#experience">החוויה</a>
+      <a href="#contact" class="nav-cta">פגישה פרטית</a>
+    </nav>
+  </header>
 
-    <footer class="footer"><div class="footer-brand">JOIN<span>.</span></div><span>נבנה כדי לחבר בין אנשים. © <span id="year"></span></span><span class="footer-side">DESIGNED WITH PURPOSE ✦</span></footer>
-  </div>
+  <main id="main">
+    <!-- HERO: the brand image, with the tagline rising out of its lower edge -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="hero-media">
+        <img src="/images/hero-logo-black.jpg" alt="Dan Ben Shalom Diamonds" width="1600" height="974" fetchpriority="high" />
+      </div>
+      <div class="hero-copy">
+        <span class="ornament" aria-hidden="true"></span>
+        <h1 id="hero-title">טבעות אירוסין, תכשיטים ויהלומים</h1>
+        <p class="lead">בכל אבן שאנחנו בוחרים יש אור, דיוק ורגש. נלווה אתכם באופן אישי, מהאבן הראשונה ועד הרגע שבו התכשיט מספר את הסיפור שלכם.</p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#contact">לתיאום פגישה פרטית</a>
+          <a class="btn btn-line" href="#collection">לגלות את הקולקציה</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLLECTION -->
+    <section class="section" id="collection" aria-labelledby="collection-title">
+      <header class="section-head reveal">
+        <p class="eyebrow">THE COLLECTION</p>
+        <h2 id="collection-title">הקולקציה</h2>
+        <p>כל תכשיט מתחיל באבן אחת שנבחרה בשבילכם. ספרו לנו מה אתם מחפשים, ונכין לפגישה בחירה אישית שמתאימה לכם בדיוק.</p>
+      </header>
+      <div class="collection">
+        <a class="item reveal" href="#contact" data-interest="engagement">
+          <svg class="item-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="40" r="16" /><path d="M24 16h16l5 6-13 10-13-10z" /></svg>
+          <h3>טבעות אירוסין</h3>
+          <p>הרגע שבו הכול מתחיל. סוליטר על־זמני, הילה מנצנצת, או שלוש אבנים שמסמלות עבר, הווה ועתיד.</p>
+          <span class="item-link">לתיאום פגישה ←</span>
+        </a>
+        <a class="item reveal" href="#contact" data-interest="earrings">
+          <svg class="item-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="20" cy="22" r="3" /><path d="M20 25v8" /><path d="M14 40l6-7 6 7-6 8z" /><circle cx="44" cy="22" r="3" /><path d="M44 25v8" /><path d="M38 40l6-7 6 7-6 8z" /></svg>
+          <h3>עגילי יהלום</h3>
+          <p>נגיעה של אור ליד הפנים. צמודים ועדינים ליום־יום, או נופלים ומרשימים לערב מיוחד.</p>
+          <span class="item-link">לתיאום פגישה ←</span>
+        </a>
+        <a class="item reveal" href="#contact" data-interest="bracelet">
+          <svg class="item-icon" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="32" rx="24" ry="14" /><circle cx="12" cy="30" r="2" /><circle cx="20" cy="40" r="2" /><circle cx="32" cy="46" r="2" /><circle cx="44" cy="40" r="2" /><circle cx="52" cy="30" r="2" /></svg>
+          <h3>צמידי טניס</h3>
+          <p>שורה רציפה של אור על פרק היד. האבנים מותאמות זו לזו, כך שהברק זורם בלי הפסקה.</p>
+          <span class="item-link">לתיאום פגישה ←</span>
+        </a>
+        <a class="item reveal" href="#contact" data-interest="loose">
+          <svg class="item-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 26l12-12h24l12 12-24 28z" /><path d="M8 26h48M20 14l6 12 6-12 6 12 6-12M26 26l6 28 6-28" /></svg>
+          <h3>יהלומים בודדים</h3>
+          <p>לפעמים הכול מתחיל באבן עצמה. בוחרים אותה בשקט ובתשומת לב, ורק אחר כך מחליטים איך לשבץ אותה.</p>
+          <span class="item-link">לתיאום פגישה ←</span>
+        </a>
+        <a class="item reveal" href="#contact" data-interest="custom">
+          <svg class="item-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 50l4-12 26-26 8 8-26 26z" /><path d="M40 16l8 8" /><path d="M10 54h44" /></svg>
+          <h3>עיצוב בהזמנה אישית</h3>
+          <p>רעיון, תמונה, או תכשיט משפחתי שעובר מדור לדור. יחד נהפוך אותו ליצירה שאין לאף אחד אחר.</p>
+          <span class="item-link">לתיאום פגישה ←</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 4C GUIDE -->
+    <section class="section section-dark" id="guide" aria-labelledby="guide-title">
+      <header class="section-head reveal">
+        <p class="eyebrow">THE 4Cs</p>
+        <h2 id="guide-title">שפת היהלומים</h2>
+        <p>ארבעה מדדים, שבהם משתמשים בכל העולם, קובעים את היופי והערך של כל יהלום. מי שמכיר אותם בוחר בביטחון.</p>
+      </header>
+
+      <div class="guide reveal">
+        <div class="tabs" role="tablist" aria-label="ארבעת ה־C">
+          <button class="tab" role="tab" id="tab-cut" aria-controls="panel-cut" aria-selected="true">ליטוש <span>Cut</span></button>
+          <button class="tab" role="tab" id="tab-color" aria-controls="panel-color" aria-selected="false" tabindex="-1">צבע <span>Color</span></button>
+          <button class="tab" role="tab" id="tab-clarity" aria-controls="panel-clarity" aria-selected="false" tabindex="-1">ניקיון <span>Clarity</span></button>
+          <button class="tab" role="tab" id="tab-carat" aria-controls="panel-carat" aria-selected="false" tabindex="-1">משקל <span>Carat</span></button>
+        </div>
+
+        <div class="panel" role="tabpanel" id="panel-cut" aria-labelledby="tab-cut">
+          <div class="panel-text">
+            <h3>ליטוש: מה שמעניק לאבן את האור שלה</h3>
+            <p>הליטוש קובע איך האור נכנס ליהלום, מוחזר מהפאות שלו ויוצא אל העין. יהלום שלוטש היטב נראה חי ובהיר, ולעיתים אפילו גדול יותר מאבן במשקל זהה שלוטשה פחות טוב.</p>
+            <p class="tip"><b>הטיפ שלנו:</b> אם צריך להתפשר, לא מתפשרים על הליטוש. הוא משפיע על הברק יותר מכל גורם אחר.</p>
+          </div>
+          <ol class="scale" aria-label="סולם דירוג ליטוש">
+            <li class="best">Excellent</li><li>Very Good</li><li>Good</li><li>Fair</li><li>Poor</li>
+          </ol>
+        </div>
+
+        <div class="panel" role="tabpanel" id="panel-color" aria-labelledby="tab-color" hidden>
+          <div class="panel-text">
+            <h3>צבע: הלובן הטהור</h3>
+            <p>הדירוג מתחיל ב־D, יהלום חסר צבע לחלוטין, ויורד עד Z, גוון צהבהב בהיר. ההבדלים בין דרגות סמוכות עדינים מאוד, ולרוב אפשר לראות אותם רק כשמניחים אבנים זו לצד זו.</p>
+            <p class="tip"><b>הטיפ שלנו:</b> בתכשיט משובץ, אבנים בדרגות G–H נראות לבנות לרוב העיניים, ומחירן נמוך משמעותית מ־D.</p>
+          </div>
+          <div class="color-scale" aria-hidden="true"></div>
+          <div class="color-labels" aria-label="קבוצות דירוג צבע">
+            <span><b>D–F</b>חסר צבע</span><span><b>G–J</b>כמעט חסר צבע</span><span><b>K–M</b>גוון קלוש</span><span><b>N–Z</b>גוון בהיר</span>
+          </div>
+        </div>
+
+        <div class="panel" role="tabpanel" id="panel-clarity" aria-labelledby="tab-clarity" hidden>
+          <div class="panel-text">
+            <h3>ניקיון: טביעת האצבע של הטבע</h3>
+            <p>כמעט לכל יהלום טבעי יש סימנים זעירים שנוצרו במעמקי האדמה לפני מיליארדי שנים, בתוך האבן (inclusions) או על פניה (blemishes). הדירוג נקבע לפי הכמות, הגודל והמיקום שלהם, כפי שהם נראים בהגדלה של פי 10.</p>
+            <p class="tip"><b>הטיפ שלנו:</b> אבנים בדרגות VS2–SI1 הן לעיתים קרובות "נקיות לעין", כלומר לא רואים בהן דבר בלי זכוכית מגדלת. כדאי לבחון כל אבן לגופה.</p>
+          </div>
+          <ol class="scale scale-wide" aria-label="סולם דירוג ניקיון">
+            <li class="best">FL</li><li class="best">IF</li><li>VVS1</li><li>VVS2</li><li>VS1</li><li>VS2</li><li>SI1</li><li>SI2</li><li>I1</li><li>I2</li><li>I3</li>
+          </ol>
+        </div>
+
+        <div class="panel" role="tabpanel" id="panel-carat" aria-labelledby="tab-carat" hidden>
+          <div class="panel-text">
+            <h3>משקל: קראט אינו רק גודל</h3>
+            <p>קראט אחד שווה 0.2 גרם. ככל שהאבן כבדה יותר היא גם גדולה יותר, אבל הליטוש והפרופורציות קובעים כמה גדולה היא תיראה מלמעלה. הזיזו את המחוון כדי לראות קוטר משוער של יהלום עגול (Round Brilliant).</p>
+            <p class="tip"><b>הטיפ שלנו:</b> המחירים קופצים במשקלים "עגולים" כמו 0.5 או 1.0 קראט. אבן של 0.9 קראט נראית כמעט זהה, ולרוב עולה פחות.</p>
+          </div>
+          <div class="carat-demo">
+            <div class="carat-stage">
+              <svg class="carat-stone" id="carat-stone" viewBox="0 0 100 100" aria-hidden="true">
+                <circle cx="50" cy="50" r="48" fill="url(#g-ice)" stroke="rgba(255,255,255,.8)" />
+                <polygon points="50,14 75,25 86,50 75,75 50,86 25,75 14,50 25,25" fill="none" stroke="rgba(255,255,255,.7)" />
+                <path d="M50 2L50 14M84 16L75 25M98 50L86 50M84 84L75 75M50 98L50 86M16 84L25 75M2 50L14 50M16 16L25 25" stroke="rgba(255,255,255,.6)" />
+              </svg>
+            </div>
+            <label for="carat-range" class="carat-readout"><strong id="carat-value">1.00</strong> קראט · <span id="carat-mm">6.4</span> מ״מ</label>
+            <input type="range" id="carat-range" min="0" max="6" step="1" value="3" aria-valuetext="1 קראט" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHAPES -->
+    <section class="section section-light" id="shapes" aria-labelledby="shapes-title">
+      <header class="section-head reveal">
+        <p class="eyebrow">SHAPES</p>
+        <h2 id="shapes-title">צורות ליטוש</h2>
+        <p>לכל צורה יש אופי משלה. יש מי שבוחרים בהיגיון, ויש מי שמתאהבים ממבט ראשון.</p>
+      </header>
+      <ul class="shapes">
+        <li class="shape reveal">
+          <svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="30" /><polygon points="40,18 56,24 62,40 56,56 40,62 24,56 18,40 24,24" /></svg>
+          <h3>עגול <span>Round</span></h3><p>הקלאסיקה הנצחית. הליטוש שמחזיר הכי הרבה אור וברק.</p>
+        </li>
+        <li class="shape reveal">
+          <svg viewBox="0 0 80 80" aria-hidden="true"><ellipse cx="40" cy="40" rx="22" ry="32" /><ellipse cx="40" cy="40" rx="12" ry="20" /></svg>
+          <h3>אובלי <span>Oval</span></h3><p>מאריך את האצבע בעדינות, ונראה גדול ביחס למשקלו.</p>
+        </li>
+        <li class="shape reveal">
+          <svg viewBox="0 0 80 80" aria-hidden="true"><polygon points="28,8 52,8 62,18 62,62 52,72 28,72 18,62 18,18" /><rect x="28" y="20" width="24" height="40" /></svg>
+          <h3>אמרלד <span>Emerald</span></h3><p>פאות מדורגות כמו אולם מראות. אלגנטיות שקטה ומאופקת.</p>
+        </li>
+        <li class="shape reveal">
+          <svg viewBox="0 0 80 80" aria-hidden="true"><path d="M40 6C52 24 64 38 64 50a24 24 0 0 1-48 0C16 38 28 24 40 6z" /><path d="M40 22c6 10 12 18 12 28a12 12 0 0 1-24 0c0-10 6-18 12-28z" /></svg>
+          <h3>טיפה <span>Pear</span></h3><p>בין עגול למרקיז. רכה, נשית ומלאת תנועה.</p>
+        </li>
+        <li class="shape reveal">
+          <svg viewBox="0 0 80 80" aria-hidden="true"><rect x="12" y="12" width="56" height="56" /><path d="M12 12l56 56M68 12L12 68" /><rect x="26" y="26" width="28" height="28" /></svg>
+          <h3>פרינסס <span>Princess</span></h3><p>קווים ישרים ופינות חדות. מודרני, נועז ונוצץ.</p>
+        </li>
+        <li class="shape reveal">
+          <svg viewBox="0 0 80 80" aria-hidden="true"><path d="M8 40C20 18 30 10 40 6c10 4 20 12 32 34-12 22-22 30-32 34C30 70 20 62 8 40z" /><path d="M40 6v68M8 40h64" /></svg>
+          <h3>מרקיז <span>Marquise</span></h3><p>צורה מוארכת בהשראת סירה, שנראית גדולה ומנצלת כל קראט.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- BUYING TIPS -->
+    <section class="section section-dark" id="tips" aria-labelledby="tips-title">
+      <header class="section-head reveal">
+        <p class="eyebrow">BEFORE YOU CHOOSE</p>
+        <h2 id="tips-title">לפני שבוחרים: חמישה דברים שחשוב לדעת</h2>
+      </header>
+      <ol class="tips">
+        <li class="reveal"><span class="num">01</span><h3>תעודה ממעבדה מוכרת</h3><p>בקשו תעודה גמולוגית ממעבדה בלתי תלויה, כמו GIA או IGI, וודאו שהמספר בתעודה תואם למספר שחרוט על חגורת האבן.</p></li>
+        <li class="reveal"><span class="num">02</span><h3>הליטוש קודם לכול</h3><p>שני יהלומים עם אותו צבע ואותו ניקיון יכולים להיראות שונים לגמרי. את ההבדל עושה הליטוש.</p></li>
+        <li class="reveal"><span class="num">03</span><h3>לראות באור אמיתי</h3><p>תאורת חנות מחמיאה לכל אבן. בקשו לראות את היהלום גם באור יום, ומכמה זוויות.</p></li>
+        <li class="reveal"><span class="num">04</span><h3>מידה מדויקת</h3><p>מודדים מידת טבעת בסוף היום ובטמפרטורת חדר, כי בחום האצבעות מתנפחות. מתכננים הפתעה? טבעת שהיא כבר עונדת תספיק למדידה.</p></li>
+        <li class="reveal"><span class="num">05</span><h3>מה הכי חשוב לכם</h3><p>החליטו מראש מה קודם: גודל, לובן או ניקיון. כך תקבלו את האבן היפה ביותר שאפשר בתקציב שלכם.</p></li>
+      </ol>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section section-light" id="experience" aria-labelledby="experience-title">
+      <header class="section-head reveal">
+        <p class="eyebrow">THE EXPERIENCE</p>
+        <h2 id="experience-title">החוויה</h2>
+        <p>תהליך אישי, רגוע ושקוף, מהשיחה הראשונה ועד הרגע שבו התכשיט אצלכם.</p>
+      </header>
+      <ol class="steps">
+        <li class="reveal"><span class="step-num">I</span><h3>היכרות</h3><p>שיחה אישית שבה נבין מה אתם מחפשים, למי, ומה התקציב.</p></li>
+        <li class="reveal"><span class="step-num">II</span><h3>בחירת האבן</h3><p>נניח לפניכם כמה אבנים ונסביר את ההבדלים ביניהן, כדי שתבחרו בעיניים ולא רק על הנייר.</p></li>
+        <li class="reveal"><span class="step-num">III</span><h3>עיצוב ושיבוץ</h3><p>יחד נבחר מתכת, שיבוץ ועיצוב שיבליטו את האבן ויתאימו בדיוק לסגנון שלכם.</p></li>
+        <li class="reveal"><span class="step-num">IV</span><h3>הרגע עצמו</h3><p>התכשיט מגיע אליכם מוכן, יחד עם כל המסמכים שלו.</p></li>
+      </ol>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section-dark" id="contact" aria-labelledby="contact-title">
+      <div class="contact-grid">
+        <div class="contact-copy reveal">
+          <p class="eyebrow">PRIVATE CONSULTATION</p>
+          <h2 id="contact-title">נשמח להכיר</h2>
+          <p>השאירו פרטים ונחזור אליכם בהקדם כדי לתאם פגישה פרטית, בזמן שנוח לכם. הפגישה לא מחייבת אתכם לכלום.</p>
+          <!-- TODO (Dan): add real contact details here, for example:
+          <ul class="contact-details">
+            <li><span>טלפון</span><a href="tel:+972XXXXXXXXX">0XX-XXX-XXXX</a></li>
+            <li><span>WhatsApp</span><a href="https://wa.me/972XXXXXXXXX">שלחו הודעה</a></li>
+            <li><span>כתובת</span>רחוב, עיר (בתיאום מראש)</li>
+          </ul>
+          -->
+          <svg class="contact-diamond" aria-hidden="true"><use href="#diamond" /></svg>
+        </div>
+
+        <form class="contact-form reveal" id="inquiry-form" novalidate>
+          <div class="field">
+            <label for="name">שם מלא</label>
+            <input id="name" name="name" type="text" minlength="2" maxlength="60" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="contact">טלפון או אימייל</label>
+            <input id="contact" name="contact" type="text" maxlength="100" required autocomplete="tel" dir="ltr" />
+          </div>
+          <div class="field">
+            <label for="interest">מה מעניין אתכם?</label>
+            <select id="interest" name="interest" required>
+              <option value="" disabled selected>בחרו אפשרות</option>
+              <option value="engagement">טבעת אירוסין</option>
+              <option value="earrings">עגילי יהלום</option>
+              <option value="bracelet">צמיד טניס</option>
+              <option value="loose">יהלום בודד</option>
+              <option value="custom">עיצוב בהזמנה אישית</option>
+              <option value="other">אחר</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="details">ספרו לנו עוד <span class="optional">(לא חובה)</span></label>
+            <textarea id="details" name="message" rows="4" maxlength="500" placeholder="למשל: תקציב משוער, צורה אהובה, תאריך מיוחד..."></textarea>
+          </div>
+          <!-- Honeypot: hidden from people, bots fill it in. The server ignores submissions that have it. -->
+          <div class="hp" aria-hidden="true">
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <button class="btn btn-gold btn-block" id="submit-btn" type="submit">לתיאום פגישה</button>
+          <p id="form-message" role="status" aria-live="polite"></p>
+          <p class="privacy-note">הפרטים שלכם משמשים רק כדי לחזור אליכם, ולא מוצגים באתר.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="brand footer-brand"><span class="brand-name">DAN BEN SHALOM</span><span class="brand-sub">DIAMONDS</span></div>
+    <span>© <span id="year"></span> Dan Ben Shalom Diamonds. כל הזכויות שמורות.</span>
+    <a href="#hero">חזרה למעלה ↑</a>
+  </footer>
 </body>
 </html>

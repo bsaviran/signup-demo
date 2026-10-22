@@ -2,7 +2,7 @@
   "name": "signup-demo",
   "version": "1.0.0",
   "private": true,
-  "description": "Tiny full-stack signup demo (frontend, API, PostgreSQL)",
+  "description": "Dan Ben Shalom Diamonds website (frontend, API, PostgreSQL)",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
