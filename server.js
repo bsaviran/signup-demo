@@ -26,7 +26,7 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Allowed values for the "interest" field. Anything else is rejected (a whitelist).
-const INTERESTS = ['engagement', 'earrings', 'bracelet', 'loose', 'custom', 'other'];
+const INTERESTS = ['engagement', 'earrings', 'bracelet', 'necklace', 'loose', 'custom', 'other'];
 const PHONE = /^[0-9+\-\s()]{9,20}$/;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

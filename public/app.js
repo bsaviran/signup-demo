@@ -108,6 +108,86 @@ form.addEventListener('submit', async (event) => {
   }
 });
 
+// ---------- Products ----------
+// The list lives in /products.json. To add a piece: put its photos in /images/products/ and add an entry there.
+const productList = document.querySelector('#products');
+const detailsField = document.querySelector('#details');
+// Which form option each product category pre-selects.
+const CATEGORY_INTEREST = { rings: 'engagement', earrings: 'earrings', bracelets: 'bracelet', necklaces: 'necklace' };
+
+// Built with createElement + textContent (not innerHTML), so text from the JSON can never inject HTML.
+function element(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text) node.textContent = text;
+  return node;
+}
+
+function productCard(product, index) {
+  const card = element('li', 'product reveal');
+  card.dataset.category = product.category;
+  card.style.setProperty('--i', index % 3);
+
+  const media = element('div', 'product-media');
+  const image = element('img');
+  image.src = `/images/products/${product.images[0]}`;
+  image.alt = product.name;
+  image.loading = 'lazy';
+  media.append(image);
+
+  // More than one photo: small dots switch between them.
+  if (product.images.length > 1) {
+    const dots = element('div', 'product-dots');
+    product.images.forEach((file, photoIndex) => {
+      const dot = element('button', 'product-dot');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `${product.name}, תמונה ${photoIndex + 1} מתוך ${product.images.length}`);
+      dot.setAttribute('aria-pressed', photoIndex === 0);
+      dot.addEventListener('click', () => {
+        image.src = `/images/products/${file}`;
+        for (const other of dots.children) other.setAttribute('aria-pressed', other === dot);
+      });
+      dots.append(dot);
+    });
+    media.append(dots);
+  }
+
+  const link = element('a', 'item-link', 'לתיאום פגישה ←');
+  link.href = '#contact';
+  // Pre-fill the form so we know which piece the visitor asked about.
+  link.addEventListener('click', () => {
+    interestSelect.value = CATEGORY_INTEREST[product.category] || 'other';
+    if (!detailsField.value.trim()) detailsField.value = `מתעניינים ב: ${product.name}`;
+  });
+
+  card.append(media, element('h3', '', product.name), element('p', '', product.description), link);
+  return card;
+}
+
+fetch('/products.json')
+  .then(response => {
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.json();
+  })
+  .then(products => {
+    products.forEach((product, index) => {
+      const card = productCard(product, index);
+      productList.append(card);
+      observer.observe(card);
+    });
+  })
+  .catch(error => console.error('Could not load products:', error));
+
+const filters = [...document.querySelectorAll('.filter')];
+for (const filter of filters) {
+  filter.addEventListener('click', () => {
+    for (const other of filters) other.setAttribute('aria-pressed', other === filter);
+    for (const card of productList.children) {
+      card.hidden = filter.dataset.filter !== 'all' && card.dataset.category !== filter.dataset.filter;
+    }
+  });
+}
+
 // ---------- Scroll reveal ----------
 // Cards in the same group get an index (--i) so CSS can delay each one a little more than the last.
 // "% 3" restarts the count every three cards, so on a phone (one card per row) nobody waits too long.

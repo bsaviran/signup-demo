@@ -1,0 +1,56 @@
+[
+  {
+    "name": "טבעת סוליטר קלאסית",
+    "category": "rings",
+    "description": "יהלום עגול אחד בשיבוץ ארבע שיניים, על חישוק חלק ועדין. הצורה הטהורה ביותר של טבעת אירוסין.",
+    "images": ["classic-solitaire-1.jpg", "classic-solitaire-2.jpg", "classic-solitaire-3.jpg"]
+  },
+  {
+    "name": "טבעת סוליטר משובצת",
+    "category": "rings",
+    "description": "יהלום מרכזי עגול על חישוק משובץ ביהלומים קטנים, שמוסיפים ברק מכל זווית.",
+    "images": ["pave-solitaire-1.jpg", "pave-solitaire-2.jpg", "pave-solitaire-3.jpg"]
+  },
+  {
+    "name": "טבעת חצי איטרניטי",
+    "category": "rings",
+    "description": "שורה של יהלומים עגולים לאורך חלקו העליון של החישוק. נענדת לבד, או לצד טבעת האירוסין.",
+    "images": ["half-eternity-1.jpg", "half-eternity-2.jpg"]
+  },
+  {
+    "name": "עגילי סוליטר עגולים",
+    "category": "earrings",
+    "description": "זוג יהלומים עגולים צמודים לאוזן, בשיבוץ ארבע שיניים. קלאסיקה שמתאימה לכל יום ולכל ערב.",
+    "images": ["round-studs-1.jpg", "round-studs-2.jpg"]
+  },
+  {
+    "name": "עגילי טיפה",
+    "category": "earrings",
+    "description": "זוג יהלומים בליטוש טיפה (Pear), צמודים לאוזן. רכים, נשיים ומלאי תנועה.",
+    "images": ["pear-studs-1.jpg"]
+  },
+  {
+    "name": "צמיד טניס",
+    "category": "bracelets",
+    "description": "שורה רציפה של יהלומים עגולים, מותאמים זה לזה, כך שהאור זורם לאורך כל הצמיד.",
+    "images": ["round-tennis-bracelet-1.jpg"]
+  },
+  {
+    "name": "צמיד טניס טיפות",
+    "category": "bracelets",
+    "description": "יהלומים בליטוש טיפה, משובצים זה אחר זה. גרסה רכה ומפתיעה לצמיד הטניס הקלאסי.",
+    "images": ["pear-tennis-bracelet-1.jpg"]
+  },
+  {
+    "name": "שרשרת סוליטר",
+    "category": "necklaces",
+    "description": "יהלום עגול יחיד בשיבוץ ארבע שיניים, על שרשרת דקה. נוכחות שקטה שנשארת איתך כל היום.",
+    "images": ["solitaire-pendant-1.jpg", "solitaire-pendant-2.jpg"]
+  },
+  {
+    "name": "שרשרת טניס",
+    "category": "necklaces",
+    "description": "שורה מלאה של יהלומים עגולים סביב הצוואר. התכשיט שהופך כל ערב לאירוע.",
+    "images": ["tennis-necklace-1.jpg", "tennis-necklace-2.jpg", "tennis-necklace-3.jpg"]
+  }
+]

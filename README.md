@@ -78,7 +78,7 @@ git push -u origin main
 ## API
 
 - `POST /api/appointments` עם גוף `{"name":"Dana","contact":"050-1234567","interest":"engagement","message":"..."}` → שומר פנייה בטבלה `appointments` ומחזיר `201`.
-  - `interest` חייב להיות אחד מ: `engagement`, `earrings`, `bracelet`, `loose`, `custom`, `other`.
+  - `interest` חייב להיות אחד מ: `engagement`, `earrings`, `bracelet`, `necklace`, `loose`, `custom`, `other`.
   - `contact` חייב להיות טלפון או אימייל תקין. `message` אינו חובה (עד 500 תווים).
   - מוגבל ל־5 פניות לכל כתובת IP בכל 10 דקות (`429`).
 - אין נקודת API שמציגה את הפניות. הן פרטיות.

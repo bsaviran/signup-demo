@@ -43,6 +43,7 @@
     </a>
     <nav class="nav" aria-label="ניווט ראשי">
       <a href="#collection">הקולקציה</a>
+      <a href="#pieces">התכשיטים</a>
       <a href="#guide">שפת היהלומים</a>
       <a href="#shapes">צורות ליטוש</a>
       <a href="#experience">החוויה</a>
@@ -106,6 +107,23 @@
           <span class="item-link">לתיאום פגישה ←</span>
         </a>
       </div>
+    </section>
+
+    <!-- PIECES: the product cards are built by app.js from /products.json -->
+    <section class="section section-light" id="pieces" aria-labelledby="pieces-title">
+      <header class="section-head reveal">
+        <p class="eyebrow">SIGNATURE PIECES</p>
+        <h2 id="pieces-title">התכשיטים שלנו</h2>
+        <p>מבחר מהתכשיטים שיצאו מהסדנה שלנו. כל אחד מהם אפשר להתאים לכם: גודל האבן, המתכת והמידה.</p>
+      </header>
+      <div class="filters" role="group" aria-label="סינון לפי סוג תכשיט">
+        <button class="filter" type="button" data-filter="all" aria-pressed="true">הכול</button>
+        <button class="filter" type="button" data-filter="rings" aria-pressed="false">טבעות</button>
+        <button class="filter" type="button" data-filter="earrings" aria-pressed="false">עגילים</button>
+        <button class="filter" type="button" data-filter="bracelets" aria-pressed="false">צמידים</button>
+        <button class="filter" type="button" data-filter="necklaces" aria-pressed="false">שרשראות</button>
+      </div>
+      <ul class="products" id="products"></ul>
     </section>
 
     <!-- 4C GUIDE -->
@@ -277,6 +295,7 @@
               <option value="engagement">טבעת אירוסין</option>
               <option value="earrings">עגילי יהלום</option>
               <option value="bracelet">צמיד טניס</option>
+              <option value="necklace">שרשרת יהלומים</option>
               <option value="loose">יהלום בודד</option>
               <option value="custom">עיצוב בהזמנה אישית</option>
               <option value="other">אחר</option>

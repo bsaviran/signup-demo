@@ -204,6 +204,35 @@ h1 em {
 .item p { color: var(--muted); margin: 0 0 28px; flex: 1; }
 .item-link { font-size: 14px; color: var(--gold); letter-spacing: 0.04em; }
 
+/* ---------- Products ---------- */
+.filters { display: flex; flex-wrap: wrap; gap: 10px; margin: -24px 0 44px; }
+.filter {
+  font: inherit; font-size: 14px; color: var(--muted); background: none; cursor: pointer;
+  border: 1px solid var(--line-soft); padding: 8px 20px; transition: color 0.3s, border-color 0.3s;
+}
+.filter:hover { color: var(--ivory); border-color: var(--line); }
+.filter[aria-pressed="true"] { color: var(--gold-light); border-color: var(--gold); }
+
+.products { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px 32px; }
+.product { display: flex; flex-direction: column; }
+.product[hidden] { display: none; }
+.product-media { position: relative; aspect-ratio: 4 / 5; margin-bottom: 22px; overflow: hidden; background: #ffffff; border: 1px solid var(--line-soft); }
+.product-media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.product:hover .product-media img { transform: scale(1.04); }
+.product-dots { position: absolute; inset: auto 0 14px; display: flex; justify-content: center; gap: 4px; }
+/* The button is a 24px touch target; the visible dot is drawn inside it. */
+.product-dot { width: 24px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
+.product-dot::after {
+  content: ""; position: absolute; top: 50%; left: 50%; width: 7px; height: 7px;
+  transform: translate(-50%, -50%) rotate(45deg); border: 1px solid var(--gold); background: rgba(255, 255, 255, 0.8);
+  transition: background 0.3s;
+}
+.product-dot[aria-pressed="true"]::after { background: var(--gold); }
+.product h3 { font-size: 24px; margin-bottom: 8px; }
+.product p { color: var(--muted); font-size: 15px; margin: 0 0 16px; flex: 1; }
+.product .item-link { text-decoration: none; }
+.product .item-link:hover { color: var(--gold-light); }
+
 /* ---------- 4C guide ---------- */
 .tabs { display: flex; border-bottom: 1px solid var(--line); margin-bottom: 52px; overflow-x: auto; }
 .tab {
@@ -345,6 +374,7 @@ input[type="range"] { width: 100%; accent-color: var(--gold); cursor: pointer; d
 @media (max-width: 860px) {
   .hero-copy { margin-top: -50px; }
   .collection { grid-template-columns: 1fr; }
+  .products { grid-template-columns: repeat(2, 1fr); gap: 44px 20px; }
   .item, .item:nth-child(n + 4) { grid-column: auto; }
   .panel { grid-template-columns: 1fr; gap: 36px; }
   .color-scale { grid-column: 1; }
@@ -365,6 +395,8 @@ input[type="range"] { width: 100%; accent-color: var(--gold); cursor: pointer; d
   .section { padding: 80px 16px; }
   .section-head { margin-bottom: 44px; }
   .item { padding: 36px 24px; }
+  .products { grid-template-columns: 1fr; }
+  .filters { margin-top: -12px; }
   .tab { font-size: 17px; min-width: 0; padding: 16px 4px; }
   .tab span { font-size: 11px; letter-spacing: 0.1em; }
   .shapes { gap: 44px 16px; }
